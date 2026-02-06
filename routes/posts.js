@@ -23,7 +23,7 @@ router.get('/:id', function (req, res) {
         post.id === Number(req.params.id));
 
     postId ? res.json(postId)
-        : res.status(404).json("404 Not found");
+        : res.status(404).json({ error: "404 Not found" });
 });
 
 // store
