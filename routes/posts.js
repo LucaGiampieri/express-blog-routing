@@ -2,18 +2,28 @@
 const express = require('express');
 const router = express.Router();
 
-
+const postsList = require('../data/posts');
 
 //rotte du CRUD
 
 // index
 router.get('/', function (req, res) {
-    res.send('Lista di tutti i post');
+
+    const ojbectPosts = {
+        postsNumber: postsList.length,
+        posts: postsList
+    }
+
+    res.json(ojbectPosts);
 });
 
 // show
 router.get('/:id', function (req, res) {
-    res.send('Visualizzazione del post con ID ' + req.params.id);
+    const postId = postsList.find(post =>
+        post.id === Number(req.params.id));
+
+    postId ? res.json(postId)
+        : res.status(404).json("404 Not found");
 });
 
 // store
